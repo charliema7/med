@@ -1,0 +1,16 @@
+<%= render 'mailbox/folders' %>
+<% if conversation.is_trashed?(current_user) %>
+    <%= link_to 'Untrash', untrash_conversation_path(conversation), class: 'btn btn-info', method: :post %>
+<% else %>
+    <%= link_to 'Move to trash', trash_conversation_path(conversation), class: 'btn btn-danger', method: :post,
+                data: {confirm: 'Are you sure?'} %>
+<% end %>
+<%= render partial: 'messages' %>
+<% if @opted_in %>
+  <%= form_for :message, url: reply_conversation_path(conversation) do |f| %>
+    <div class="form-group">
+      <%= f.text_area :body, placeholder: "Reply Message", rows: 4, class: "form-control" %>
+    </div>
+    <%= f.submit "Reply", class: 'btn btn-danger pull-right' %>
+  <% end %>
+<% end %>

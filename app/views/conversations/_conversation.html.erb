@@ -1,0 +1,19 @@
+<% if conversation.is_unread?(current_user) %>
+  <b>
+    <%= conversation.subject %><br>
+    <small><%= conversation.last_sender.name %></small><br>
+    <small><%=  conversation.receipts_for(current_user).last.message.created_at.strftime("%A, %b %d, %Y at %I:%M%p") %></small><br>
+  </b>
+<% else %>
+  <%= conversation.subject %><br>
+  <small><%= conversation.last_sender.name %></small><br>
+  <small><%=  conversation.receipts_for(current_user).last.message.created_at.strftime("%A, %b %d, %Y at %I:%M%p") %></small><br>
+<% end %>
+<%= truncate conversation.receipts_for(current_user).last.message.body, length: 145 %><br>
+<%= link_to "View", conversation_path(conversation)  %>
+<% if conversation.is_trashed?(current_user) %>
+<%= link_to 'Untrash', untrash_conversation_path(conversation), class: 'btn btn-info', method: :post %>
+<% else %>
+<%= link_to 'Move to trash', trash_conversation_path(conversation), class: 'btn btn-danger', method: :post, data: {confirm: 'Are you sure?'} %>
+<% end %>
+<hr>

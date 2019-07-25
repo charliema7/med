@@ -1,0 +1,35 @@
+<p>Participants: |
+<% @conversation.participants.each do |participant| %>
+  <% if @conversation.is_unread?(participant) %>
+    <b><%= participant.name %></b>
+  <% else %>
+    <%= participant.name %>
+  <% end %>
+  <%= link_to 'opt out', opt_out_conversation_path(conversation, participant: participant), method: :post %> |
+<% end %>
+<% if @users.count > 0 %>
+  <%= form_with url: add_participant_conversation_path do |f| %>
+    <div class="form-group">
+      <%= f.label :participant %>
+      <%= f.collection_select(:participant, @users, :id, :name) %>
+    </div>
+    <%= f.submit "Add Participant", class: "btn btn-success" %>
+  <% end %>
+<% end %>
+<% @opted_out_participants.each do |participant| %>
+  <%= participant.name %> <%= link_to 'opt in', opt_in_conversation_path(conversation, participant: participant), method: :post %>
+<% end %>
+</p>
+<h2>Subject: <%= conversation.subject %></h2>
+<% @receipts.each do |receipt| %>
+    <% message = receipt.message %>
+    <div class="media">
+      <div class="media-body">
+        <h4 class="media-heading">
+          From: <%= message.sender.present? ? message.sender.name : "[User no longer active.]" %> <br>
+          <small><b>Date: </b><%=  message.created_at.strftime("%A, %b %d, %Y at %I:%M%p") %></small>
+        </h4>
+        <%= message.body%>
+      </div>
+    </div>
+<% end %>
