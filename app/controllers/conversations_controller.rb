@@ -25,7 +25,7 @@ class ConversationsController < ApplicationController
     flash[:success] = "Your message was successfully sent!"
     redirect_to conversation_path(conversation)
   end
-  
+
   def reply
     current_user.reply_to_conversation(conversation, message_params[:body])
     flash[:notice] = "Your reply message was successfully sent!"
@@ -70,12 +70,12 @@ class ConversationsController < ApplicationController
 
   def trash
     conversation.move_to_trash(current_user)
-    redirect_to inbox_mailbox_index_path
+    redirect_to mailbox_inbox_path
   end
 
   def untrash
     conversation.untrash(current_user)
-    redirect_to inbox_mailbox_index_path
+    redirect_to mailbox_inbox_path
   end
 
   private

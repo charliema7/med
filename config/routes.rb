@@ -1,7 +1,13 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root 'home#index'
-  devise_for :users
+  devise_for :users, :controllers => { invitations: 'users/invitations' }
+
+  resources :invitations, only: [:index, :resend] do
+    member do
+      get :resend
+    end
+  end
 
   # mailbox folder routes
   get "mailbox/inbox" => "mailbox#inbox", as: :mailbox_inbox
@@ -19,5 +25,5 @@ Rails.application.routes.draw do
       post :opt_out
     end
   end
-  
+
 end

@@ -1,10 +1,13 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :registerable,
+  devise :invitable, :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
   acts_as_messageable
+
+
+  has_many :invitations, class_name: self.to_s, as: :invited_by
 
   #Returning any kind of identification you want for the model
   def name
@@ -19,5 +22,9 @@ class User < ApplicationRecord
     self.email
     #if false
     #return nil
+  end
+
+  def invite_accepted?
+    invitation_accepted_at != nil
   end
 end
