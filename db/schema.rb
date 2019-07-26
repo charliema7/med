@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_25_061840) do
+ActiveRecord::Schema.define(version: 2019_07_26_063111) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -99,6 +99,22 @@ ActiveRecord::Schema.define(version: 2019_07_25_061840) do
     t.string "invited_by_type"
     t.uuid "invited_by_id"
     t.integer "invitations_count", default: 0
+    t.string "title"
+    t.string "first_name"
+    t.string "middle_name"
+    t.string "last_name"
+    t.string "cell_phone"
+    t.string "secondary_phone"
+    t.string "fax"
+    t.string "street"
+    t.string "city"
+    t.string "province"
+    t.string "postal"
+    t.string "country"
+    t.date "date_of_birth"
+    t.boolean "admin", default: false
+    t.boolean "disabled", default: false
+    t.datetime "deleted_at"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true

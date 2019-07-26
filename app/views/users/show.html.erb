@@ -1,0 +1,93 @@
+<p>
+  <strong>Title:</strong>
+  <%= @user.title %>
+</p>
+<p>
+  <strong>First Name:</strong>
+  <%= @user.first_name %>
+</p>
+<p>
+  <strong>Middle Name:</strong>
+  <%= @user.middle_name %>
+</p>
+<p>
+  <strong>Last Name:</strong>
+  <%= @user.last_name %>
+</p>
+<p>
+  <strong>Email:</strong>
+  <%= @user.email %>
+</p>
+<p>
+  <strong>Cell:</strong>
+  <%= @user.cell_phone %>
+</p>
+<p>
+  <strong>Secondary Phone:</strong>
+  <%= @user.secondary_phone %>
+</p>
+<p>
+  <strong>Fax:</strong>
+  <%= @user.fax %>
+</p>
+<p>
+  <strong>Street:</strong>
+  <%= @user.street %>
+</p>
+<p>
+  <strong>City:</strong>
+  <%= @user.city %>
+</p>
+<p>
+  <strong>State / Province:</strong>
+  <%= @user.province %>
+</p>
+<p>
+  <strong>Zip / Postal Code:</strong>
+  <%= @user.postal %>
+</p>
+<p>
+  <strong>Country:</strong>
+  <%= @user.country %>
+</p>
+<p>
+  <strong>Confirmed at:</strong>
+  <%= @user.confirmed_at %>
+</p>
+<p>
+  <strong>Confirmation Sent At:</strong>
+  <%= @user.confirmation_sent_at %>
+</p>
+<p>
+  <strong>Deleted At:</strong>
+  <%= @user.deleted_at %>
+</p>
+<p>
+  <strong>Invitation Created At:</strong>
+  <%= @user.invitation_created_at %>
+</p>
+<p>
+  <strong>Invitation Sent At:</strong>
+  <%= @user.invitation_sent_at %>
+</p>
+<p>
+  <strong>Invitation Accepted At:</strong>
+  <%= @user.invitation_accepted_at %>
+</p>
+<p>
+  <strong>Updated At:</strong>
+  <%= @user.updated_at %>
+</p>
+<p>
+  <strong>Created At:</strong>
+  <%= @user.created_at %>
+</p>
+<p>
+  <strong>Disabled:</strong>
+  <%= @user.disabled %>
+</p>
+
+<% if current_user.admin? %>
+  <%= link_to 'Edit', edit_user_path(@user) %> |
+<% end %>
+<%= link_to 'Back', users_path %>

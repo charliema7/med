@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root 'home#index'
-  devise_for :users, :controllers => { invitations: 'users/invitations' }
 
+  devise_for :users, :controllers => { registrations: 'users/registrations',
+                                        invitations: 'users/invitations' }
+  resources :users
   resources :invitations, only: [:index, :resend] do
     member do
       get :resend

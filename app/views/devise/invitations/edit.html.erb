@@ -6,6 +6,16 @@
 
   <% if f.object.class.require_password_on_accepting %>
     <div class="field">
+      <%= f.label :first_name %><br />
+      <%= f.text_field :first_name %>
+    </div>
+    
+    <div class="field">
+      <%= f.label :last_name %><br />
+      <%= f.text_field :last_name %>
+    </div>
+
+    <div class="field">
       <%= f.label :password %><br />
       <%= f.password_field :password %>
     </div>
