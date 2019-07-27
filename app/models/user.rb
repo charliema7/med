@@ -6,7 +6,7 @@ class User < ApplicationRecord
 
   acts_as_messageable
 
-
+  has_many :login_activities, as: :user # use :user no matter what your model name
   has_many :invitations, class_name: self.to_s, as: :invited_by
   validates :first_name, :last_name, presence: true
   #Returning any kind of identification you want for the model

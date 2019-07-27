@@ -1,0 +1,51 @@
+<h1>Login Activities</h1>
+
+<table>
+  <thead>
+    <tr>
+      <% if current_user.admin? %>
+        <th>Identity</th>
+      <% end %>
+      <th>Status</th>
+      <th>Failure reason</th>
+      <th>User name</th>
+      <th>Browser Name</th>
+      <th>Browser Version</th>
+      <th>Device Name</th>
+      <th>Platform Name</th>
+      <th>Platform Version</th>
+      <th>Ip</th>
+      <th>City</th>
+      <th>Region</th>
+      <th>Country</th>
+      <th>Latitude</th>
+      <th>Longitude</th>
+      <th>Created at</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @login_activities.each do |login| %>
+      <tr>
+        <% if current_user.admin? %>
+          <td><%= login.identity %></td>
+        <% end %>
+        <td><%= login.success? ? "Success" : "Failure" %></td>
+        <td><%= login.failure_reason.to_s.humanize %></td>
+        <td><%= login.user&.first_name %> <%= login.user&.last_name %></td>
+        <td><%= login.browser_name %></td>
+        <td><%= login.browser_version %></td>
+        <td><%= login.device_name %></td>
+        <td><%= login.platform_name %></td>
+        <td><%= login.platform_version %></td>
+        <td><%= login.ip %></td>
+        <td><%= login.city %></td>
+        <td><%= login.region %></td>
+        <td><%= login.country %></td>
+        <td><%= login.latitude %></td>
+        <td><%= login.longitude %></td>
+        <td><%= login.created_at %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

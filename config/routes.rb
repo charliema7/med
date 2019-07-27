@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   devise_for :users, :controllers => { registrations: 'users/registrations',
                                         invitations: 'users/invitations' }
   resources :users
+  resources :login_activities, only: [:index]
   resources :invitations, only: [:index, :resend] do
     member do
       get :resend
