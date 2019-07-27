@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_27_071606) do
+ActiveRecord::Schema.define(version: 2019_07_27_165039) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(version: 2019_07_27_071606) do
     t.string "user_type"
     t.uuid "user_id"
     t.string "context"
-    t.inet "ip"
+    t.string "ip"
     t.text "user_agent"
     t.text "referrer"
     t.string "city"
