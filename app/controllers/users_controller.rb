@@ -8,6 +8,7 @@ class UsersController < ApplicationController
   # GET /products/1
   # GET /products/1.json
   def show
+    @login_activities = LoginActivity.where(identity: @user.email)
   end
 
   def edit
