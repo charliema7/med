@@ -1,14 +1,25 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :admin_user, except: [:index, :show]
+  before_action :set_patients, only: [:index, :show]
+
   def index
-    @users = User.all
+    if current_user.user_type.name == "Patient"
+      @users = User.where.not(id: current_user) - @patients
+    else
+      @users = User.all
+    end
   end
 
   # GET /products/1
   # GET /products/1.json
   def show
-    @login_activities = LoginActivity.where(identity: @user.email)
+    if current_user.user_type.name == "Patient" && @user.user_type.name == "Patient"
+      flash[:notice] = "User does not exist."
+      redirect_back(fallback_location: root_path)
+    else
+      @login_activities = LoginActivity.where(identity: @user.email)
+    end
   end
 
   def edit
@@ -40,6 +51,10 @@ class UsersController < ApplicationController
       @user = User.find(params[:id])
     end
 
+    def set_patients
+      @patients = User.joins(:user_type).where(user_types: {name: 'Patient'})
+    end
+
     # Confirms an admin user.
     def admin_user
       redirect_back(fallback_location: root_path) unless current_user.admin?
@@ -50,6 +65,7 @@ class UsersController < ApplicationController
                                     :admin, :deleted_at, :title, :first_name, 
                                     :middle_name, :last_name, :cell_phone, 
                                     :secondary_phone, :fax, :street, :city, 
-                                    :province, :postal, :country, :disabled)
+                                    :province, :postal, :country, :disabled,
+                                    :user_type_id)
     end
 end

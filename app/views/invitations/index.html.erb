@@ -8,9 +8,15 @@
       <th>Email</th>
       <th>Updated At</th>
       <th>Created At</th>
+      <th>Deleted At</th>
       <th>Invited By</th>
       <th>Invitation Created At</th>
-      <th colspan="3"></th>
+      <% if current_user.admin? %>
+        <th colspan="3"></th>
+      <% else %>
+        <th colspan="1"></th>
+      <% end %>
+      
     </tr>
   </thead>
 
@@ -20,9 +26,15 @@
         <td><%= user.email %></td>
         <td><%= user.updated_at %></td>
         <td><%= user.created_at %></td>
+        <td><%= user.deleted_at %></td>
         <td><%= user.invited_by.email %></td>
         <td><%= user.invitation_created_at %></td>
         <td><%= link_to 'Resend Invite', resend_invitation_path(user) %></td>
+        <td><%= link_to 'Show', user %></td>
+      <% if current_user.admin? %>
+        <td><%= link_to 'Edit', edit_user_path(user) %></td>
+        <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <% end %>
       </tr>
     <% end %>
   </tbody>
@@ -33,11 +45,19 @@
   <thead>
     <tr>
       <th>Email</th>
+      <th>First Name</th>
+      <th>Last Name</th>
       <th>Updated At</th>
       <th>Created At</th>
+      <th>Deleted At</th>
       <th>Invited By</th>
       <th>Invitation Accepted At</th>
-      <th colspan="3"></th>
+      <% if current_user.admin? %>
+        <th colspan="3"></th>
+      <% else %>
+        <th colspan="1"></th>
+      <% end %>
+      
     </tr>
   </thead>
 
@@ -45,10 +65,18 @@
     <% @accepted_users.each do |user| %>
       <tr>
         <td><%= user.email %></td>
+        <td><%= user.first_name %></td>
+        <td><%= user.last_name %></td>
         <td><%= user.updated_at %></td>
         <td><%= user.created_at %></td>
+        <td><%= user.deleted_at %></td>
         <td><%= user.invited_by.email %></td>
         <td><%= user.invitation_accepted_at %></td>
+        <td><%= link_to 'Show', user %></td>
+      <% if current_user.admin? %>
+        <td><%= link_to 'Edit', edit_user_path(user) %></td>
+        <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <% end %>
       </tr>
     <% end %>
   </tbody>

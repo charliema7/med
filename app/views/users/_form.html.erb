@@ -10,6 +10,11 @@
       </ul>
     </div>
   <% end %>
+
+  <div class="field">
+    <%= f.label :user_type %><br />
+    <%= f.collection_select :user_type_id, UserType.order(:name), :id, :name %>
+  </div>
   
   <div class="field">
     <%= f.label :title %><br />
@@ -29,6 +34,11 @@
   <div class="field">
     <%= f.label :last_name %><br />
     <%= f.text_field :last_name, autocomplete: "family-name" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :date_of_birth %><br />
+    <%= f.date_field :date_of_birth, autocomplete: "bday" %>
   </div>
 
   <div class="field">

@@ -16,7 +16,18 @@ class ConversationsController < ApplicationController
   end
 
   def new
-    @users = User.all
+    disabled_users = User.where(disabled: true)
+    deleted_users = User.where.not(deleted_at: nil)
+    patients = User.joins(:user_type).where(user_types: {name: 'Patient'})
+    if current_user.user_type.name == "Patient"
+      @users = User.where.not(id: current_user) - patients - disabled_users - deleted_users
+    else
+      @users = User.where.not(id: current_user) - disabled_users - deleted_users
+    end
+    @subject = params[:subject]
+    if params[:recipient]
+      @recipient = User.find(params[:recipient])
+    end
   end
 
   def create
