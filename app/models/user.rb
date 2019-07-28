@@ -6,6 +6,13 @@ class User < ApplicationRecord
   devise :invitable, :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :trackable
 
+  has_paper_trail ignore: [:current_sign_in_at, :last_sign_in_at,
+                           :current_sign_in_ip, :last_sign_in_ip,
+                           :sign_in_count, :confirmation_token,
+                           :invitation_token, :unlock_token,
+                           :encrypted_password], 
+                           versions: {scope: -> {order("created_at desc")}}
+
   acts_as_messageable
 
   has_many :login_activities, as: :user # use :user no matter what your model name

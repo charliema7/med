@@ -96,6 +96,7 @@
 </p>
 
 <%= render "login_activities" %>
+<%= render "versions" %>
 <% if current_user.admin? %>
   <%= link_to 'Edit', edit_user_path(@user) %> |
 <% end %>

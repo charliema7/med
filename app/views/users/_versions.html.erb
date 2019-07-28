@@ -1,0 +1,52 @@
+<h2>Versions</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Version at</th>
+      <th>Modifier</th>
+      <th>Event</th>
+      <th>Changes</th>   
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @user.versions.each do |version| %>
+      <tr>
+        <td><%= version.created_at %></td>
+        <td><%= version.actor&.first_name %> <%= version.actor&.last_name %></td>
+        <td><%= version.event %></td>
+        <td>
+          <table>
+            <thead>
+              <tr>
+                <th></th>
+                <th>Old</th>
+                <th>New</th>
+              </tr>
+              <tbody>
+                <% version.changeset.each do |key, value| %>
+                  <% if (value[0].present? || value[1].present?) && key != 'encrypted_password' && key != 'id'%>
+                    <tr>
+                      <td><strong><%= key.humanize %>:</strong></td>
+                      <% case key
+                         when "user_type_id"%>
+                          <td><%= UserType.find(value[0]).name if value[0].present? && UserType.exists?(value[0]) %></td>
+                          <td><%= UserType.find(value[1]).name if value[1].present? && UserType.exists?(value[1]) %></td>
+                      <% when "invited_by_id" %>
+                          <td><%= User.find(value[0]).first_name if value[0].present? && User.exists?(value[0]) %></td>
+                          <td><%= User.find(value[1]).first_name if value[1].present? && User.exists?(value[1]) %></td>
+                      <% else %>
+                        <td><%= value[0] %></td>
+                        <td><%= value[1] %></td>
+                      <% end %>
+                    </tr>
+                  <% end %> 
+                <% end %>
+              </tbody>
+            </thead>
+          </table>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
